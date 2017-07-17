@@ -28,17 +28,40 @@ export class WeatherService {
           console.log(err); return err.json(); 
         });
   }
+
+  getWeekForecast(coordinates:Coordinates):Observable<Weather[]> {
+    return this.http.get(API_URL + `${coordinates.lat},${coordinates.lon}`)
+      .map((res:Response) => {
+        let body = res.json();
+        let weather = [];
+
+        for (var i=0; i<body.daily.data.length; i++) {
+          console.log(body.daily.data[i]);
+          weather.push(this.doExtract(body.timezone, body.daily.data[i]));
+        }
+
+        return weather;
+      }, (err:any) => {
+        console.log(err);
+      });
+  }
   
   private extractData(res:Response):Weather {
       let body = res.json();
-      return new WeatherBuilder()
-        .setTimezone(body.timezone)
-        .setTemperature(this.converterService.farehnheitToCelsius(body.currently.temperature))
-        .setHumidity(body.currently.humidity)
-        .setIcon(body.currently.icon)
-        .setSummary(body.currently.summary)
-        .setWindSpeed(body.currently.windSpeed)
-        .setCloudCover(body.currently.cloudCover)
+      return this.doExtract(body.timezone, body.currently);
+  }
+
+  private doExtract(timezone:string, weatherData:any):Weather {
+    return new WeatherBuilder()
+        .setTimezone(timezone)
+        .setTemperature(this.converterService.farehnheitToCelsius(weatherData.temperature))
+        .setTemperatureMin(this.converterService.farehnheitToCelsius(weatherData.temperatureMin))
+        .setTemperatureMax(this.converterService.farehnheitToCelsius(weatherData.temperatureMax))
+        .setHumidity(weatherData.humidity)
+        .setIcon(weatherData.icon)
+        .setSummary(weatherData.summary)
+        .setWindSpeed(weatherData.windSpeed)
+        .setCloudCover(weatherData.cloudCover)
         .build();
   }
 

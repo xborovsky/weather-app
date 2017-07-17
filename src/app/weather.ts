@@ -1,6 +1,8 @@
 export class WeatherBuilder {
     
     private temperature:number;
+    private temperatureMin:number;
+    private temperatureMax:number;
     private icon:string;
     private humidity:number;
     private summary:string;
@@ -14,6 +16,24 @@ export class WeatherBuilder {
     
     setTemperature(temperature:number):WeatherBuilder {
         this.temperature = temperature;
+        return this;
+    }
+
+    getTemperatureMin():number {
+        return this.temperatureMin;
+    }
+    
+    setTemperatureMin(temperatureMin:number):WeatherBuilder {
+        this.temperatureMin = temperatureMin;
+        return this;
+    }
+
+    getTemperatureMax():number {
+        return this.temperatureMax;
+    }
+    
+    setTemperatureMax(temperatureMax:number):WeatherBuilder {
+        this.temperatureMax = temperatureMax;
         return this;
     }
     
@@ -79,6 +99,8 @@ export class WeatherBuilder {
 
 export class Weather {
     private temperature:number;
+    private temperatureMin:number;
+    private temperatureMax:number;
     private icon:string;
     private humidity:number;
     private summary:string;
@@ -88,6 +110,8 @@ export class Weather {
     
     constructor(builder:WeatherBuilder) {
         this.temperature = builder.getTemperature();
+        this.temperatureMin = builder.getTemperatureMin();
+        this.temperatureMax = builder.getTemperatureMax();
         this.icon = builder.getIcon();
         this.humidity = builder.getHumidity();
         this.summary = builder.getSummary();
@@ -98,6 +122,14 @@ export class Weather {
     
     getTemerature():number {
         return this.temperature;
+    }
+
+    getTemeratureMin():number {
+        return this.temperatureMin;
+    }
+
+    getTemeratureMax():number {
+        return this.temperatureMax;
     }
     
     getIcon():string {

@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>7-days</h2>
+  <div class="row">
+    <div class="col-xs-12" *ngFor="let forecast of weatherForecast; let i=index">
+      <table class="table">
+            <tbody>
+            <tr>
+                <th width="25%">Temperature min:</th>
+                <td>{{forecast.temperatureMin | number:'1.0-0'}} &#8451;</td>
+            </tr>
+            <tr>
+                <th>Temperature max:</th>
+                <td>{{forecast.temperatureMax | number:'1.0-0'}} &#8451;</td>
+            </tr>
+            <tr>
+                <th>Summary:</th>
+                <td>{{forecast.summary}}</td>
+            </tr>
+            <tr>
+                <th>Humidity:</th>
+                <td>{{forecast.humidity * 100 | number:'1.0-0'}}%</td>
+            </tr>
+            <tr>
+                <th>Wind speed:</th>
+                <td>{{forecast.windSpeed | number:'1.1-3'}}</td>
+            </tr>
+            <tr>
+                <th>Cloud cover:</th>
+                <td>{{forecast.cloudCover * 100 | number:'1.0-0'}}%</td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td><canvas id="icon{{i}}" width="100" height="100"></canvas>{{skycons.add('icon' + i, forecast.icon)}} {{ skycons.play() }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>
