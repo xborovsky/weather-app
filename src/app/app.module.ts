@@ -8,16 +8,23 @@ import { WeatherService } from './weather.service';
 import { LocationService } from './location.service';
 import { ConverterService } from './converter.service';
 import { SearchComponent } from './search/search.component';
+import { WeekForecastComponent } from './week-forecast/week-forecast.component';
+
+import { RoutesModule } from './routes/routes.module';
+import { CurrentWeatherComponent } from './current-weather/current-weather.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponent
+    SearchComponent,
+    WeekForecastComponent,
+    CurrentWeatherComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    RoutesModule
   ],
   providers: [WeatherService, LocationService, ConverterService],
   bootstrap: [AppComponent]

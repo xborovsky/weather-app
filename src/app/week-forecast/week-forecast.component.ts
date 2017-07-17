@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Weather } from '../weather';
 import { Coordinates } from '../coordinates';
@@ -17,13 +18,15 @@ export class WeekForecastComponent implements OnInit {
   weatherForecast : Weather[];
   skycons : any = new Skycons();
 
-  constructor(private weatherService:WeatherService) { }
+  constructor(private weatherService:WeatherService, private router:Router, private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
-    this.weatherService.getWeekForecast(new Coordinates(50.0414874, 14.4428629))
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.weatherService.getWeekForecast(new Coordinates(+params['lat'], +params['lon']))
       .subscribe((forecast:Weather[]) => {
         this.weatherForecast = forecast;
       });
+    });
   }
 
 }

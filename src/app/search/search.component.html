@@ -11,7 +11,7 @@
   </form>
 </div>
 
-<div class="container" style="margin-top: 50px;" *ngIf="weather">
+<!--<div class="container" style="margin-top: 50px;" *ngIf="weather">
     <div *ngIf="weather">
         <table class="table">
             <tbody>
@@ -46,6 +46,12 @@
             </tbody>
         </table>
     </div>
-</div>
+</div>-->
 
-<app-week-forecast></app-week-forecast>
+<div class="container">
+    <ul class="nav nav-pills" *ngIf="searchCoordinates">
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/current']" [queryParams]="{lat: searchCoordinates.lat, lon : searchCoordinates.lon}">Current weather</a></li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/week-forecast']"  [queryParams]="{lat: searchCoordinates.lat, lon : searchCoordinates.lon}">Week forecast</a></li>
+    </ul>
+    <router-outlet></router-outlet>
+</div>

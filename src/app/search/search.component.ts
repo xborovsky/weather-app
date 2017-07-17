@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { LocationService } from '../location.service';
 import { WeatherService } from '../weather.service';
 import { Coordinates } from '../coordinates';
 import { Weather } from '../weather';
-
-declare var Skycons:any;
 
 @Component({
   selector: 'app-search',
@@ -17,15 +16,20 @@ export class SearchComponent implements OnInit {
   searchQuery:string = null;
   searchCoordinates : Coordinates;
   weather : Weather;
-  skycons : any;
 
-  constructor(private locationService:LocationService, private weatherService:WeatherService) { }
+  constructor(
+    private locationService:LocationService,
+    private weatherService:WeatherService,
+    private router:Router,
+    private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
     this.locationService.getCurrentCoordinates()
         .subscribe((coordinates:Coordinates) => {
+          console.log(coordinates);
           this.locationService.reverseGeocode(coordinates.lat, coordinates.lon)
             .subscribe((address : string) => {
+              console.log(address);
               this.search(address);
             });
         });
@@ -36,11 +40,7 @@ export class SearchComponent implements OnInit {
     this.locationService.geocode(searchQuery)
       .subscribe((coords : Coordinates) => {
         this.searchCoordinates = coords;
-        this.weatherService.getCurrentWeather(coords)
-          .subscribe((weather : Weather) => {
-            this.weather = weather;
-            this.skycons = new Skycons();
-          });
+        this.router.navigate([this.router.url.substring(0, this.router.url.indexOf('?'))], { queryParams : { lat:coords.lat, lon:coords.lon } });
       });
   }
 
