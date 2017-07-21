@@ -52,6 +52,7 @@
     <ul class="nav nav-pills" *ngIf="searchCoordinates">
         <li [routerLinkActive]="['active']"><a [routerLink]="['/current']" [queryParams]="{lat: searchCoordinates.lat, lon : searchCoordinates.lon}">Current weather</a></li>
         <li [routerLinkActive]="['active']"><a [routerLink]="['/week-forecast']"  [queryParams]="{lat: searchCoordinates.lat, lon : searchCoordinates.lon}">Week forecast</a></li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/favorites']">Favorites</a></li>
     </ul>
     <router-outlet></router-outlet>
 </div>

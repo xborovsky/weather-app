@@ -5,6 +5,8 @@ import { Weather } from '../weather';
 import { Coordinates } from '../coordinates';
 
 import { WeatherService } from '../weather.service';
+import { LocationService } from '../location.service';
+import { FavoritesManagerService } from '../favorites-manager.service';
 
 declare var Skycons:any;
 
@@ -19,8 +21,14 @@ export class CurrentWeatherComponent implements OnInit {
   skycons:any;
   lat:number;
   lon:number;
+  address:string;
 
-  constructor(private weatherService:WeatherService, private router:Router, private activatedRoute:ActivatedRoute) { }
+  constructor(
+    private weatherService:WeatherService,
+    private router:Router,
+    private activatedRoute:ActivatedRoute,
+    private favoritesManager:FavoritesManagerService,
+    private locationService:LocationService) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -32,7 +40,24 @@ export class CurrentWeatherComponent implements OnInit {
         this.weather = weather;
         this.skycons = new Skycons();
       });
+
+      this.locationService.reverseGeocode(this.lat, this.lon)
+        .subscribe((address:string) => {
+          this.address = address;
+        });
     });
+  }
+
+  makeFavorite(lat:number, lon:number) {
+      this.favoritesManager.addFavoritePlace(this.address, new Coordinates(lat, lon));
+  }
+
+  unFavorite(address:string) {
+    this.favoritesManager.removeFavoritePlace(address);
+  }
+
+  isFavorite(address:string) {
+    return this.favoritesManager.isFavoritePlace(address);
   }
 
 }
