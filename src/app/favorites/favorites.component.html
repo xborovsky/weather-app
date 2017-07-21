@@ -1,37 +1,46 @@
 <div class="container">
   <p *ngIf="!weatherInFavoritePlaces || !weatherInFavoritePlaces.length" class="text-center">Favorites list is empty!</p>
-  <div *ngIf="weatherInFavoritePlaces">
-      <table class="table" *ngFor="let weather of weatherInFavoritePlaces">
-          <tbody>
-            <tr>
-                <th>Your location:</th>
-                <td>{{weather.timezone}} ({{lat | number:'1.0-4'}};{{lon|number:'1.0-4'}})</td>
-            </tr>
-            <tr>
-                <th>Temperature:</th>
-                <td>{{weather.temperature | number:'1.0-0'}} &#8451;</td>
-            </tr>
-            <tr>
-                <th>Summary:</th>
-                <td>{{weather.summary}}</td>
-            </tr>
-            <tr>
-                <th>Humidity:</th>
-                <td>{{weather.humidity * 100 | number:'1.0-0'}}%</td>
-            </tr>
-            <tr>
-                <th>Wind speed:</th>
-                <td>{{weather.windSpeed | number:'1.1-3'}}</td>
-            </tr>
-            <tr>
-                <th>Cloud cover:</th>
-                <td>{{weather.cloudCover * 100 | number:'1.0-0'}}%</td>
-            </tr>
-            <!--<tr>
-                <th>&nbsp;</th>
-                <td><canvas id="icon" width="100" height="100"></canvas>{{skycons.add('icon', weather.icon)}} {{ skycons.play() }}</td>
-            </tr>-->
-          </tbody>
-      </table>
+  <div *ngIf="weatherInFavoritePlaces && weatherInFavoritePlaces.length">
+    <div *ngFor="let weather of weatherInFavoritePlaces" class="panel panel-default">
+      <div class="panel-heading">
+        {{weather.weather.timezone}}
+        <img src="assets/delete.png" class="icon delete pull-right" alt="Delete" title="Delete from favorites"
+            (click)="removeFavorite(weather.coordinates.lat, weather.coordinates.lon)" />
+      </div>
+      <div class="panel-body">
+        <table class="table">
+            <tbody>
+              <tr>
+                  <th>Your location:</th>
+                  <td>{{weather.coordinates.lat | number:'1.0-4'}};{{weather.coordinates.lon|number:'1.0-4'}}</td>
+              </tr>
+              <tr>
+                  <th width="50%">Temperature:</th>
+                  <td width="50%">{{weather.weather.temperature | number:'1.0-0'}} &#8451;</td>
+              </tr>
+              <tr>
+                  <th>Summary:</th>
+                  <td>{{weather.weather.summary}}</td>
+              </tr>
+              <tr>
+                  <th>Humidity:</th>
+                  <td>{{weather.weather.humidity * 100 | number:'1.0-0'}}%</td>
+              </tr>
+              <tr>
+                  <th>Wind speed:</th>
+                  <td>{{weather.weather.windSpeed | number:'1.1-3'}}</td>
+              </tr>
+              <tr>
+                  <th>Cloud cover:</th>
+                  <td>{{weather.weather.cloudCover * 100 | number:'1.0-0'}}%</td>
+              </tr>
+              <!--<tr>
+                  <th>&nbsp;</th>
+                  <td><canvas id="icon" width="100" height="100"></canvas>{{skycons.add('icon', weather.icon)}} {{ skycons.play() }}</td>
+              </tr>-->
+            </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

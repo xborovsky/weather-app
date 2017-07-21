@@ -5,6 +5,7 @@ import { WeatherService } from '../weather.service';
 
 import { Weather } from '../weather';
 import { FavoritePlace } from '../favorite-place';
+import { Coordinates } from '../coordinates';
 
 @Component({
   selector: 'app-favorites',
@@ -13,7 +14,7 @@ import { FavoritePlace } from '../favorite-place';
 })
 export class FavoritesComponent implements OnInit {
 
-  private weatherInFavoritePlaces:Weather[] = [];
+  private weatherInFavoritePlaces:FavoritePlaceWeather[] = [];
 
   constructor(private favoritesManager:FavoritesManagerService, private weatherService:WeatherService) { }
 
@@ -25,11 +26,23 @@ export class FavoritesComponent implements OnInit {
       favoritePlaces.forEach((favoritePlace:FavoritePlace) => {
         this.weatherService.getCurrentWeather(favoritePlace['coordinates'])
           .subscribe((weather:Weather) => {
-            this.weatherInFavoritePlaces.push(weather);
-            console.log(this.weatherInFavoritePlaces);
+            let favoritePlaceWeather:FavoritePlaceWeather = new FavoritePlaceWeather();
+            favoritePlaceWeather.weather = weather;
+            favoritePlaceWeather.coordinates = favoritePlace['coordinates'];
+            console.log(favoritePlaceWeather);
+            this.weatherInFavoritePlaces.push(favoritePlaceWeather);
           });
       });
     }
   }
 
+  removeFavorite(lat:number, lon:number):void {
+    this.favoritesManager.removeFavoritePlaceByCoordinates(new Coordinates(lat, lon));
+  }
+
+}
+
+class FavoritePlaceWeather {
+  public weather:Weather;
+  public coordinates:Coordinates;
 }

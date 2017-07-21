@@ -1,14 +1,18 @@
 <div class="container" style="margin-top: 50px;" *ngIf="weather">
-    <div *ngIf="weather">
-        <img src="/assets/star-empty.png" alt="favorite empty icon" title="Make this place my favorite!" class="icon favorite"
+    <div *ngIf="weather" class="panel panel-default">
+      <div class="panel-heading">
+        {{weather.timezone}}
+        <img src="/assets/star-empty.png" alt="favorite empty icon" title="Make this place my favorite!" class="icon favorite pull-right"
           (click)="makeFavorite(lat, lon);" *ngIf="!isFavorite(address)" />
-        <img src="/assets/star-full.png" alt="favorite empty icon" title="Make this place my favorite!" class="icon favorite"
+        <img src="/assets/star-full.png" alt="favorite empty icon" title="Make this place my favorite!" class="icon favorite pull-right"
           (click)="unFavorite(address);" *ngIf="isFavorite(address)" />
+      </div>
+      <div class="panel-body">
         <table class="table">
             <tbody>
             <tr>
                 <th>Your location:</th>
-                <td>{{weather.timezone}} ({{lat | number:'1.0-4'}};{{lon|number:'1.0-4'}})</td>
+                <td>{{lat | number:'1.0-4'}};{{lon|number:'1.0-4'}}</td>
             </tr>
             <tr>
                 <th>Temperature:</th>
@@ -36,5 +40,6 @@
             </tr>
             </tbody>
         </table>
+      </div>
     </div>
 </div>

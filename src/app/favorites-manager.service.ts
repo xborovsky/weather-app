@@ -32,6 +32,17 @@ export class FavoritesManagerService {
     localStorage.setItem(STORAGE_NAME, JSON.stringify(removed));
   }
 
+  removeFavoritePlaceByCoordinates(coordinates:Coordinates):void {
+    var data = JSON.parse(localStorage.getItem(STORAGE_NAME));
+    if (!data) {
+      return;
+    }
+    var removed = data.filter(element => {
+      return element.coordinates.lat !== coordinates.lat && element.coordinates.lon !== coordinates.lon;
+    });
+    localStorage.setItem(STORAGE_NAME, JSON.stringify(removed));
+  }
+
   isFavoritePlace(address:string):boolean {
     var data = JSON.parse(localStorage.getItem(STORAGE_NAME));
     if (!data) {
@@ -45,6 +56,7 @@ export class FavoritesManagerService {
 
   getAllFavoritePlaces():FavoritePlace[] {
     var data = JSON.parse(localStorage.getItem(STORAGE_NAME));
+    console.log(data);
     if (!data) {
       return [];
     }
