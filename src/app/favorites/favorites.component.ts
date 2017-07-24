@@ -19,6 +19,16 @@ export class FavoritesComponent implements OnInit {
   constructor(private favoritesManager:FavoritesManagerService, private weatherService:WeatherService) { }
 
   ngOnInit() {
+    this.reloadFavoritePlaces();
+  }
+
+  removeFavorite(lat:number, lon:number):void {
+    this.favoritesManager.removeFavoritePlaceByCoordinates(new Coordinates(lat, lon));
+    this.reloadFavoritePlaces();
+  }
+
+  private reloadFavoritePlaces():void {
+    this.weatherInFavoritePlaces = [];
     let favoritePlaces = this.favoritesManager.getAllFavoritePlaces();
     if (!favoritePlaces || !favoritePlaces.length) {
       this.weatherInFavoritePlaces = [];
@@ -34,10 +44,6 @@ export class FavoritesComponent implements OnInit {
           });
       });
     }
-  }
-
-  removeFavorite(lat:number, lon:number):void {
-    this.favoritesManager.removeFavoritePlaceByCoordinates(new Coordinates(lat, lon));
   }
 
 }
