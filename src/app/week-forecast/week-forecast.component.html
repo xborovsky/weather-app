@@ -1,7 +1,40 @@
 <div class="container">
-  <h2>7-days</h2>
   <div class="row">
-    <div class="col-xs-12" *ngFor="let forecast of weatherForecast; let i=index">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-mf-offset-3 col-lg-4 col-lg-offset-4 weather-day"
+        *ngFor="let forecast of weatherForecast; let i=index" title="Click for details...">
+        <div class="row">
+            <div class="col-xs-4">
+                <canvas id="icon{{i}}" width="100" height="100"></canvas>
+                {{skycons.add('icon' + i, forecast.icon)}} {{ skycons.play() }}
+            </div>
+            <div class="col-xs-8">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td colspan="2"><h3>{{ getDayName(i) }}</h3></td>
+                        </tr>
+                        <tr>
+                            <th width="25%">Min:</th>
+                            <td>{{forecast.temperatureMin | number:'1.0-0'}} &#8451;</td>
+                        </tr>
+                        <tr>
+                            <th>Max:</th>
+                            <td>{{forecast.temperatureMax | number:'1.0-0'}} &#8451;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{forecast.summary}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!--<div class="col-xs-12" *ngFor="let forecast of weatherForecast; let i=index">
       <table class="table">
             <tbody>
             <tr>
@@ -34,6 +67,6 @@
             </tr>
             </tbody>
         </table>
-    </div>
+    </div>-->
   </div>
 </div>

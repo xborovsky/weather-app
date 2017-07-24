@@ -7,6 +7,7 @@ import { WeatherService } from './weather.service';
 import { LocationService } from './location.service';
 import { ConverterService } from './converter.service';
 import { FavoritesManagerService } from './favorites-manager.service';
+import { CalendarUtil } from './calendar.util';
 
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
@@ -30,7 +31,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
     FormsModule,
     RoutesModule
   ],
-  providers: [WeatherService, LocationService, ConverterService, FavoritesManagerService],
+  providers: [WeatherService, LocationService, ConverterService, FavoritesManagerService, CalendarUtil],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

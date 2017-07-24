@@ -5,6 +5,7 @@ import { Weather } from '../weather';
 import { Coordinates } from '../coordinates';
 
 import { WeatherService } from '../weather.service';
+import { CalendarUtil } from '../calendar.util';
 
 declare var Skycons:any;
 
@@ -18,7 +19,11 @@ export class WeekForecastComponent implements OnInit {
   weatherForecast : Weather[];
   skycons : any = new Skycons();
 
-  constructor(private weatherService:WeatherService, private router:Router, private activatedRoute:ActivatedRoute) { }
+  constructor(
+    private weatherService:WeatherService, 
+    private router:Router, 
+    private activatedRoute:ActivatedRoute,
+    private calendarUtil:CalendarUtil) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -27,6 +32,10 @@ export class WeekForecastComponent implements OnInit {
         this.weatherForecast = forecast;
       });
     });
+  }
+
+  getDayName(dayNum:number):string {
+    return this.calendarUtil.getNextDayName(dayNum);
   }
 
 }

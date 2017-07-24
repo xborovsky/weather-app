@@ -1,0 +1,12 @@
+.weather-day {
+    margin-bottom: 25px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.weather-day .table tr:first-child th,
+.weather-day .table tr:first-child td {
+    border-top: 0;
+}
