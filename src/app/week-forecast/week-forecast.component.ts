@@ -7,8 +7,6 @@ import { Coordinates } from '../coordinates';
 import { WeatherService } from '../weather.service';
 import { CalendarUtil } from '../calendar.util';
 
-declare var Skycons:any;
-
 @Component({
   selector: 'app-week-forecast',
   templateUrl: './week-forecast.component.html',
@@ -17,8 +15,11 @@ declare var Skycons:any;
 export class WeekForecastComponent implements OnInit {
 
   weatherForecast : Weather[];
-  skycons : any = new Skycons();
+  detailView : boolean[] = [];
 
+  classesSimple:string[] = ['col-xs-12', 'col-sm-10', 'col-sm-offset-1', 'col-md-6', 'col-mf-offset-3', 'col-lg-4', 'col-lg-offset-4'];
+  classesDetail:string[] = ['col-xs-12', 'col-sm-12', 'col-md-10', 'col-mf-offset-1', 'col-lg-8', 'col-lg-offset-2'];
+  
   constructor(
     private weatherService:WeatherService, 
     private router:Router, 
@@ -30,6 +31,9 @@ export class WeekForecastComponent implements OnInit {
       this.weatherService.getWeekForecast(new Coordinates(+params['lat'], +params['lon']))
       .subscribe((forecast:Weather[]) => {
         this.weatherForecast = forecast;
+        forecast.forEach((weather:Weather, i:number) => {
+          this.detailView.push(false);
+        });
       });
     });
   }

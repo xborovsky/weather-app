@@ -26,10 +26,8 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.locationService.getCurrentCoordinates()
         .subscribe((coordinates:Coordinates) => {
-          console.log(coordinates);
           this.locationService.reverseGeocode(coordinates.lat, coordinates.lon)
             .subscribe((address : string) => {
-              console.log(address);
               this.search(address);
             });
         });

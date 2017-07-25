@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-xs-4">
+    <canvas id="icon-{{id}}" width="100" height="100"></canvas>
+    {{skycons.add('icon-' + id, forecast.icon)}} {{ skycons.play() }}
+  </div>
+  <div class="col-xs-8">
+    <table class="table weather-day">
+      <tbody>
+        <tr>
+          <td colspan="2">
+            <h3>{{ dayName }}</h3>
+          </td>
+        </tr>
+        <tr>
+          <th width="25%">Min:</th>
+          <td>{{forecast.temperatureMin | number:'1.0-0'}} &#8451;</td>
+        </tr>
+        <tr>
+          <th>Max:</th>
+          <td>{{forecast.temperatureMax | number:'1.0-0'}} &#8451;</td>
+        </tr>
+        <tr>
+          <td colspan="2">{{forecast.summary}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

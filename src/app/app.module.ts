@@ -16,6 +16,8 @@ import { WeekForecastComponent } from './week-forecast/week-forecast.component';
 import { RoutesModule } from './routes/routes.module';
 import { CurrentWeatherComponent } from './current-weather/current-weather.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { WeekForecastSimpleComponent } from './week-forecast-simple/week-forecast-simple.component';
+import { WeekForecastDetailComponent } from './week-forecast-detail/week-forecast-detail.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { FavoritesComponent } from './favorites/favorites.component';
     SearchComponent,
     WeekForecastComponent,
     CurrentWeatherComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    WeekForecastSimpleComponent,
+    WeekForecastDetailComponent
   ],
   imports: [
     BrowserModule,

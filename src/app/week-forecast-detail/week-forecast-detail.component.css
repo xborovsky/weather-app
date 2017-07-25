@@ -1,0 +1,4 @@
+.weather-day tr:first-child th,
+.weather-day tr:first-child td {
+    border-top: 0;
+}

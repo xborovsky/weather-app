@@ -22,7 +22,6 @@ export class WeatherService {
   getCurrentWeather(coordinates:Coordinates): Observable<Weather> {
       return this.http.get(API_URL + coordinates.lat + ',' + coordinates.lon)
         .map((res:Response) => {
-          console.log(res.json());
           return this.extractData(res);
         }, (err : Response | any) => { 
           console.log(err); return err.json(); 
@@ -36,7 +35,6 @@ export class WeatherService {
         let weather = [];
 
         for (var i=0; i<body.daily.data.length; i++) {
-          console.log(body.daily.data[i]);
           weather.push(this.doExtract(body.timezone, body.daily.data[i]));
         }
 
