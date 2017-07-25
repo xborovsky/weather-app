@@ -10,7 +10,8 @@ describe('ConverterService', () => {
     });
   });
 
-  it('should ...', inject([ConverterService], (service: ConverterService) => {
-    expect(service).toBeTruthy();
+  it('should correctly convert farenheit to celsius', inject([ConverterService], (service: ConverterService) => {
+    expect(service.farehnheitToCelsius(100)).toEqual(37.77777777777778);
+    expect(service.farehnheitToCelsius(0)).toEqual(-17.77777777777778);
   }));
 });

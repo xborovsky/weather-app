@@ -35,12 +35,17 @@ export class CalendarUtil {
 
   constructor() { }
 
+  // TODO full names should be used in week detail view
   getCurrentDayName():string {
-    return this.dayNames[new Date().getDay()].short;
+    return this.dayNames[this.getCurrentDay()].short;
   }
 
   getNextDayName(nextDay:number):string {
-    return this.dayNames[(new Date().getDay() + nextDay) % 7].short;
+    return this.dayNames[(this.getCurrentDay() + nextDay) % 7].short;
+  }
+
+  private getCurrentDay() { // for tests
+    return new Date().getDay();
   }
 
 }
